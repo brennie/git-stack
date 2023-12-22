@@ -4,7 +4,7 @@ mod stack;
 use clap::{Parser, Subcommand};
 use git2::Repository;
 
-use crate::commands::{show_stack, ShowOptions};
+use crate::commands::{push_stack, show_stack, PushOptions, ShowOptions};
 
 
 #[derive(Parser)]
@@ -19,6 +19,7 @@ struct Options {
 #[derive(Subcommand)]
 enum Command    {
     Show(ShowOptions),
+    Push(PushOptions),
 }
 
 fn main() -> anyhow::Result<()> {
@@ -26,6 +27,7 @@ fn main() -> anyhow::Result<()> {
     let repo = Repository::discover(".")?;
     match options.command {
         Command::Show(command_options) => show_stack(repo, command_options)?,
+        Command::Push(command_options) => push_stack(repo, command_options)?,
     }
 
     Ok(())

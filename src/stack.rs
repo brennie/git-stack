@@ -1,13 +1,13 @@
 use std::collections::HashMap;
 use std::fmt;
 
-use git2::{Branch, Commit, Oid, Repository, BranchType};
+use git2::{Branch, Commit, Oid, Repository, BranchType, PushUpdate};
 
 pub type Stack<'repo> = Vec<StackEntry<'repo>>;
 
 pub struct StackEntry<'repo> {
-    commit: Commit<'repo>,
-    local_branch: Option<String>,
+    pub commit: Commit<'repo>,
+    pub local_branch: Option<String>,
 }
 
 pub fn current<'repo>(
@@ -78,3 +78,4 @@ fn branch_lookup_table(repo: &Repository) -> anyhow::Result<HashMap<Oid, Vec<(Br
 
     Ok(branches)
 }
+
